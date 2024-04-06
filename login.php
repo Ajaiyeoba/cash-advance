@@ -96,12 +96,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
     <style>
+        section{
+        
+        }
              .container{
     justify-content: center;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     width: 400px;
+    margin-top: 20px;
 }
 
 .header{
@@ -111,11 +115,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 form{
     padding: 30px 40px;
+    display: block;
 }
 .form-group{
     margin-bottom: 10px;
     padding-bottom: 20px;
     position: relative;
+
 }
 .form-group label{
     display: inline-block;
@@ -149,25 +155,22 @@ form{
     </style>
 </head>
 <body>
-<header>
+    <header>
         <a href="" class="logo">
-            <h2>TicketBritte</h2>
+            <h2>FundWatch <i class="fa-light fa-comment-plus"></i></h2>
         </a>
 
         <ul class="navmenu">
             <li><a href="index.html">Home</a></li>            
-            <li><a href="">Concerts</a></li>
+            <li><a href="">Request</a></li>
             <li><a href="">About</a></li>            
             <li><a href="">Contact</a></li>
 
         </ul>
-
-        <div class="nav-icon">
-            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-            <a href=""><i class="fa-solid fa-user"></i></a>
-            <a href=""><i class="fa-solid fa-film"></i></a>
-
-           <div  class="fa-solid fa-bars" id="menu-icon"></div>
+        <div class="nav-btn">
+        <a href="login.php" class="" id="log-btn">Login</a>
+                <a href="register.php" class="main-btn" id="reg-btn">Register</a>
+           <div  class="fa-solid fa-bars" id="menu-icon">H</div>
         </div>
     </header>
 
@@ -262,5 +265,6 @@ form{
     <div class="end-text">
         <p> Copyright @2024. All Rghts Reserved</p>
     </div>
+    <script src="app.js"></script>
 </body>
 </html>

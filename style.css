@@ -49,32 +49,54 @@ header{
 .navmenu a:hover{
     color: #12041f;
 }
-.nav-icon{
+.nav-btn{
     display: flex;
     align-items: center;
+    margin-left: 50px;
+}
+.nav-btn a{
+    padding: 10px 20px;
+    
 }
 
-.nav-icon i{
-    margin-right: 20px;
-    color: #12041f;
-    font-size: 20px;
-    font-weight: 400;
-    transition: all .42s ease;
-}
-.nav-icon i:hover{
-    color: #551a8b;
-    transform: scale(1.1);
-}
 
 #menu-icon{
     font-size: 25px;
     z-index: 10001;
     color: #12041f;
     cursor: pointer;
-
+    margin-left: 10px;
 }
 
-
+.main-btn{
+    display: inline-block;
+    color: #efefef;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    border: 2px solid #111;
+    padding:  12px 25px;
+    transition: all .42s ease;
+    background-color: #551a8b;
+}
+.main-btn:hover{
+    background-color: #551a8b;
+    color: #fff;
+}
+#log-btn{
+    color: #551a8b;
+}
+#reg-btn{
+    border: none;
+    border-radius: 50px;
+    transition: all .42s ease;
+}
+#reg-btn:hover{
+    background-color: #efefef;
+    color: #551a8b;
+    transition: all .42s ease;
+    border: 1px solid #551a8b;
+}
 section{
     padding: 5% 10%;
 }
