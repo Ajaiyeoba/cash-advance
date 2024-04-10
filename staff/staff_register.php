@@ -80,7 +80,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
-                header("location: login.php");
+                header("location: staff_login.php");
                 exit();
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -166,7 +166,78 @@ form{
     margin-top: 20px;
     width: 100%;
 }
-
+/* New Form Styles */
+.formbold-main-wrapper{
+    display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 48px;
+}
+.formbold-form-wrapper {
+          margin: 0 auto;
+          max-width: 570px;
+          width: 100%;
+          background: white;
+          padding: 40px;
+        }
+        .formbold-form-title {
+          margin-bottom: 30px;
+        }
+        .formbold-form-title h2 {
+          font-weight: 600;
+          font-size: 28px;
+          line-height: 34px;
+          color: #07074d;
+        }
+        .formbold-input-flex {
+          display: flex;
+          gap: 20px;
+          margin-bottom: 15px;
+        }
+        .formbold-input-flex > div {
+          width: 50%;
+        }
+        .formbold-form-input {
+          text-align: center;
+          width: 100%;
+          padding: 13px 22px;
+          border-radius: 5px;
+          border: 1px solid #dde3ec;
+          background: #ffffff;
+          font-weight: 500;
+          font-size: 16px;
+          color: #536387;
+          outline: none;
+          resize: none;
+        }
+        .formbold-form-input:focus {
+          border-color: #6a64f1;
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-form-label {
+          color: #536387;
+          font-size: 14px;
+          line-height: 24px;
+          display: block;
+          margin-bottom: 10px;
+        }
+        .formbold-btn {
+          font-size: 16px;
+          border-radius: 5px;
+          padding: 14px 25px;
+          border: none;
+          font-weight: 500;
+          background-color: #6a64f1;
+          color: white;
+          cursor: pointer;
+          margin-top: 25px;
+        }
+        .formbold-btn:hover {
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-mb-3 {
+          margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -192,42 +263,81 @@ form{
     </header>
 
     <section>
-        <div class="container">
-        <h2>Sign Up As A Staff Member</h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Staff ID</label>
-                <input type="text" name="staff_id" class="form-control <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $staff_id; ?>">
-                <span class="invalid-feedback"><?php echo $staff_id_err; ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div> 
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-                <span class="invalid-feedback"><?php echo $email_err; ?></span>
-            </div>   
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+        <div class="formbold-main-wrappper">
+            <div class="formbold-form-wrapper">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <div class="formbold-form-title">
+              <h2 class="">Register</h2>
+    </div>
+
+    <div class="formbold-input-flex">
+            <div>
+                <label for="staff_id" class="formbold-form-label">
+                  Staff ID
+                </label>
+                <input
+                    type="text"
+                    name="staff_id"
+                    id="staff_id"
+                    class="formbold-form-input <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $staff_id; ?>" value="<?php echo $staff_id; ?>"
+                />
+              </div>
+            <div>
+                <label for="username" class="formbold-form-label">
+                  Username
+                </label>
+                <input
+                    type="text"
+                    name="username"
+                    id="staff_id"
+                    class="formbold-form-input  <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
+                />
+              </div>
+    </div>
+    <div class="formbold-mb-3">
+            <div>
+                <label for="password" class="formbold-form-label">
+                  Email
+                </label>
+                <input
+                    type="email"
+                    name="email"
+                    id="password"
+                    class="formbold-form-input<?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>"
+                />
+              </div>
+    </div>
+
+    <div class="formbold-input-flex">
+            <div>
+                <label for="password" class="formbold-form-label">
+                  Password
+                </label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="formbold-form-input  <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>"
+                />
+              </div>
+              <div>
+                <label for="password" class="formbold-form-label">
+                  Confirm Paasword
+                </label>
+                <input
+                    type="password"
+                    name="confirm_password"
+                    id="password"
+                    class="formbold-form-input   <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>"
+                />
+              </div>
+    </div>
+
+    <input type="submit" name="submit" class="formbold-btn" value="Register">
+    <p>Already Have an Account! <a href="staff_login.php">Login</a>.</p>     
+</form>
             </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-            </div>
-            <p>Already have an account? <a href="staff_login.php">Login here</a>.</p>
-        </form>
-  
+        </div>
     </section>
          
     <section class="contact">

@@ -1,3 +1,21 @@
+<?php
+include '../config.php'; // Make sure this line includes the correct path to config.php
+
+// Check if connection to database is successful
+if ($link->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM staff_requests";
+$results = mysqli_query($link, $sql);
+
+if (!$results) {
+    die("Error: " . $sql . "<br>" . mysqli_error($link));
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +24,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
 </head>
 <style>
  
@@ -48,38 +66,40 @@
                         <table>
                             <thead>
                                 <tr class="table100-head">
-                                    <th>Date</th>
-                                    <th>Order No</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
+                                    <th>Id</th>
+                                    <th>Name </th>
+                                    <th>Amount</th>
+                                    <th>Request</th>
+       a                             <th>Department  </th>
+                                    <th>Operatons</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td  class="column1">2017-09-29 01:22</td>
-                                    <td  class="column2">200398</td>
-                                    <td class="column3" >iPhone X 64Gb Grey</td>
-                                    <td class="column4">$999.00</td>
-                                    <td class="column5">1</td>
+<?php
+                                if (mysqli_num_rows($results) > 0) {
+                                    while ($row = mysqli_fetch_assoc($results)) {
+                                        $id = $row['id'];
+                                        $name = $row['name'];
+                                        $amount = $row['amount'];
+                                        $request = $row['request'];
+                                        $dept = $row['dept'];
+                                        echo '
+                                            <tr>
+                                                <td class="column1">' . $id . '</td>
+                                                <td class="column2">' . $name . '</td>
+                                                <td class="column3">' . $amount . '</td>
+                                                <td class="column4">' . $request . '</td>
+                                                <td class="column5">' . $dept . '</td>
+                                                <td>
+                                                    <button><a href="">Update</a></button>
+                                                    <button><a href="">Delete</a></button>
+                                                </td>
+                                            </tr>';
+                                    }
+                                }
+                                ?>
+                                
 
-                                </tr>
-                                <tr>
-                                    <td  class="column1">2017-09-29 01:22</td>
-                                    <td  class="column2">200398</td>
-                                    <td class="column3" >iPhone X 64Gb Grey</td>
-                                    <td class="column4">$999.00</td>
-                                    <td class="column5">1</td>
-
-                                </tr>
-                                <tr>
-                                    <td  class="column1">2017-09-29 01:22</td>
-                                    <td  class="column2">200398</td>
-                                    <td class="column3" >iPhone X 64Gb Grey</td>
-                                    <td class="column4">$999.00</td>
-                                    <td class="column5">1</td>
-
-                                </tr>
                                 
 
                             </tbody>
@@ -146,6 +166,6 @@
     <div class="end-text">
         <p> Copyright @2024. All Rghts Reserved</p>
     </div>
-    <script src="app.js"> </script> 
+    <script src="../app.js"> </script> 
 </body>
 </html>

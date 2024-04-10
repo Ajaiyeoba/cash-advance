@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["username"] = $username; // Store username in session
                             
                             // Redirect user to welcome page
-                            header("location: welcome.php");
+                            header("location: staff_request.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -96,69 +96,79 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
     <style>
-        section{
-        
-        }
-             .container{
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 400px;
-    margin-top: 20px;
-}
-.container h2{
-    text-align: center;
-}
-.container p{
     
-    text-align: center
+/* New Form Styles */
+.formbold-main-wrapper{
+    display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 48px;
 }
-
-.header{
-    border-bottom: 1px solid #f0f0f0;
-    background-color: #fff;
-    padding: 20px 40px;
-}
-form{
-    padding: 30px 40px;
-    display: block;
-}
-.form-group{
-    margin-bottom: 10px;
-    padding-bottom: 20px;
-    position: relative;
-
-}
-.form-group label{
-    display: inline-block;
-    margin-bottom: 5px;
-    font-family: cursive;
-}
-.form-group input{
-    border: 2px solid #f0f0f0;
-     border-radius: 4px;
-    display: block;
-    font-size: 14px;
-    padding: 10px;
-    width: 100%; 
-}
-.form-group input:focus{
-    outline: 0;
-    border-color: #777;
-}
-.btn{
-    background: #551a8b;
-    border: 2px solid #8e44ad;
-    border-radius: 4px;
-    color: #fff;
-    display: block;
-    font-family: cursive;
-    font-size: 16px;
-    padding: 10px;
-    margin-top: 20px;
-    width: 100%;
-}
+.formbold-form-wrapper {
+          margin: 0 auto;
+          max-width: 570px;
+          width: 100%;
+          background: white;
+          padding: 40px;
+        }
+        .formbold-form-title {
+          margin-bottom: 30px;
+        }
+        .formbold-form-title h2 {
+          font-weight: 600;
+          font-size: 28px;
+          line-height: 34px;
+          color: #07074d;
+        }
+        .formbold-input-flex {
+          display: flex;
+          gap: 20px;
+          margin-bottom: 15px;
+        }
+        .formbold-input-flex > div {
+          width: 50%;
+        }
+        .formbold-form-input {
+          text-align: center;
+          width: 100%;
+          padding: 13px 22px;
+          border-radius: 5px;
+          border: 1px solid #dde3ec;
+          background: #ffffff;
+          font-weight: 500;
+          font-size: 16px;
+          color: #536387;
+          outline: none;
+          resize: none;
+        }
+        .formbold-form-input:focus {
+          border-color: #6a64f1;
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-form-label {
+          color: #536387;
+          font-size: 14px;
+          line-height: 24px;
+          display: block;
+          margin-bottom: 10px;
+        }
+        .formbold-btn {
+          font-size: 16px;
+          border-radius: 5px;
+          padding: 14px 25px;
+          border: none;
+          font-weight: 500;
+          background-color: #6a64f1;
+          color: white;
+          cursor: pointer;
+          margin-top: 25px;
+        }
+        .formbold-btn:hover {
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-mb-3 {
+          margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -181,13 +191,13 @@ form{
     </header>
 
 
-    <section class="">
-        <div class="container">
+    <!-- <section class=""> -->
+        <!-- <div class="container"> -->
 
-        <div class="header">
+        <!-- <div class="header">
         <h2>Staff Login </h2>
         </div>
-        <p>Please fill in your credentials to login.</p>
+        <p>Please fill in your credentials to login.</p> -->
 
 
     
@@ -198,24 +208,48 @@ form{
         }        
         ?>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Staff ID</label>
-                <input type="text" name="staff_id" class="form-control <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $staff_id; ?>">
-                <span class="invalid-feedback"><?php echo $staff_id_err; ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-            <p>Don't have an account? <a href="staff_register.php">Sign up now</a>.</p>
-        </form>
+    
+    <section>
+        <div class="formbold-main-wrappper">
+            <div class="formbold-form-wrapper">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <div class="formbold-form-title">
+              <h2 class="">Login</h2>
     </div>
 
+    <div class="formbold-mb-3">
+            <div>
+                <label for="password" class="formbold-form-label">
+                  Staff ID
+                </label>
+                <input
+                    type="text"
+                    name="staff_id"
+                    id="name"
+                    class="formbold-form-input <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $staff_id; ?>"
+                />
+              </div>
+    </div>
+    <div class="formbold-mb-3">
+            <div>
+                <label for="password" class="formbold-form-label">
+                  Password
+                </label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="formbold-form-input  <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
+                />
+              </div>
+    </div>
+
+    <input type="submit" name="submit" class="formbold-btn" value="Login">
+    <p>Don't have an account? <a href="staff_register.php">Sign up now</a>.</p>     
+</form>
+            </div>
+        </div>
+    </section>
 
     <section class="contact">
         <div class="contact-info">
