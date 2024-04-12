@@ -6,17 +6,17 @@ session_start();
 require_once "../config.php";
 
 // Define variables and initialize with empty values
-$staff_id = $password = "";
-$staff_id_err = $password_err = $login_err = "";
+$department = $password = "";
+$department_err = $password_err = $login_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if staff ID is empty
-    if(empty(trim($_POST["staff_id"]))){
-        $staff_id_err = "Please enter staff ID.";
+    // Check if department is empty
+    if(empty(trim($_POST["department"]))){
+        $department_err = "Please enter Department.";
     } else{
-        $staff_id = trim($_POST["staff_id"]);
+        $department = trim($_POST["department"]);
     }
     
     // Check if password is empty
@@ -27,26 +27,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate credentials
-    if(empty($staff_id_err) && empty($password_err)){
+    if(empty($department_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, staff_id, username, password FROM users WHERE staff_id = ?";
+        $sql = "SELECT id, department, admin, password FROM users WHERE department = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_staff_id);
+            mysqli_stmt_bind_param($stmt, "s", $param_department);
             
             // Set parameters
-            $param_staff_id = $staff_id;
+            $param_department = $department;
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Store result
                 mysqli_stmt_store_result($stmt);
                 
-                // Check if staff ID exists, if yes then verify password
+                // Check if department exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $staff_id, $username, $hashed_password);
+                    mysqli_stmt_bind_result($stmt, $id, $department, $admin, $hashed_password);
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -55,18 +55,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username; // Store username in session
+                            $_SESSION["admin"] = $admin; // Store admin in session
                             
                             // Redirect user to welcome page
-                            header("location: welcome.php");
+                            header("location: ../welcome.php");
                         } else{
                             // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
+                            $login_err = "Invalid admin or password.";
                         }
                     }
                 } else{
-                    // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
+                    // admin doesn't exist, display a generic error message
+                    $login_err = "Invalid admin or password.";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -82,9 +82,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
 
-
-
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,69 +93,79 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
     <style>
-        section{
-        
+
+/* New Form Styles */
+.formbold-main-wrapper{
+    display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 48px;
+}
+.formbold-form-wrapper {
+          margin: 0 auto;
+          max-width: 570px;
+          width: 100%;
+          background: white;
+          padding: 40px;
         }
-             .container{
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 400px;
-    margin-top: 20px;
-}
-.container h2{
-    text-align: center;
-}
-.container p{
-    
-    text-align: center
-}
-
-.header{
-    border-bottom: 1px solid #f0f0f0;
-    background-color: #fff;
-    padding: 20px 40px;
-}
-form{
-    padding: 30px 40px;
-    display: block;
-}
-.form-group{
-    margin-bottom: 10px;
-    padding-bottom: 20px;
-    position: relative;
-
-}
-.form-group label{
-    display: inline-block;
-    margin-bottom: 5px;
-    font-family: cursive;
-}
-.form-group input{
-    border: 2px solid #f0f0f0;
-     border-radius: 4px;
-    display: block;
-    font-size: 14px;
-    padding: 10px;
-    width: 100%; 
-}
-.form-group input:focus{
-    outline: 0;
-    border-color: #777;
-}
-.btn{
-    background: #551a8b;
-    border: 2px solid #8e44ad;
-    border-radius: 4px;
-    color: #fff;
-    display: block;
-    font-family: cursive;
-    font-size: 16px;
-    padding: 10px;
-    margin-top: 20px;
-    width: 100%;
-}
+        .formbold-form-title {
+          margin-bottom: 30px;
+        }
+        .formbold-form-title h2 {
+          font-weight: 600;
+          font-size: 28px;
+          line-height: 34px;
+          color: #07074d;
+        }
+        .formbold-input-flex {
+          display: flex;
+          gap: 20px;
+          margin-bottom: 15px;
+        }
+        .formbold-input-flex > div {
+          width: 50%;
+        }
+        .formbold-form-input {
+          text-align: center;
+          width: 100%;
+          padding: 13px 22px;
+          border-radius: 5px;
+          border: 1px solid #dde3ec;
+          background: #ffffff;
+          font-weight: 500;
+          font-size: 16px;
+          color: #536387;
+          outline: none;
+          resize: none;
+        }
+        .formbold-form-input:focus {
+          border-color: #6a64f1;
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-form-label {
+          color: #536387;
+          font-size: 14px;
+          line-height: 24px;
+          display: block;
+          margin-bottom: 10px;
+        }
+        .formbold-btn {
+          font-size: 16px;
+          border-radius: 5px;
+          padding: 14px 25px;
+          border: none;
+          font-weight: 500;
+          background-color: #6a64f1;
+          color: white;
+          cursor: pointer;
+          margin-top: 25px;
+        }
+        .formbold-btn:hover {
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        .formbold-mb-3 {
+          margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -179,43 +186,54 @@ form{
            <div  class="fa-solid fa-bars" id="menu-icon">H</div>
         </div>
     </header>
-
-
-    <section class="">
-        <div class="container">
-
-        <div class="header">
-        <h2> Dept Login</h2>
-        </div>
-        <p>Please fill in your credentials to login.</p>
-
-
-    
-
         <?php 
         if(!empty($login_err)){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
         }        
         ?>
-
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Staff ID</label>
-                <input type="text" name="staff_id" class="form-control <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $staff_id; ?>">
-                <span class="invalid-feedback"><?php echo $staff_id_err; ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+<section>
+    <div class="formbold-main-wrappper">
+            <div class="formbold-form-wrapper">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <div class="formbold-form-title">
+              <h2 class=""> Department Login</h2>
+    </div>
+    <div class="formbold-mb-3">
+            <div>
+                <label for="password" class="formbold-form-label">
+                Department
+                </label>
+                <input
+                    type="text"
+                    name="staff_id"
+                    id="name"
+                    class="formbold-form-input <?php echo (!empty($department_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $department; ?>"
+                />
+                <span class="invalid-feedback"><?php echo $department_err; ?></span>
+              </div>
+    </div>
+    <div class="formbold-mb-3">
+            <div>
+                <label for="password" class="formbold-form-label">
+                  Password
+                </label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="formbold-form-input  <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
+                />
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-            <p>Don't have an account? <a href="dept_reg.php">Sign up now</a>.</p>
-        </form>
+              </div>
     </div>
 
+
+    <input type="submit" name="submit" class="formbold-btn" value="Login">
+    <p>Don't have an account? <a href="dept_reg.php">Sign up now</a>.</p>     
+</form>
+ </div>
+        </div>
+    </section>
 
     <section class="contact">
         <div class="contact-info">
@@ -267,7 +285,6 @@ form{
             </div>
         </div>
     </section>
-
     <div class="end-text">
         <p> Copyright @2024. All Rghts Reserved</p>
     </div>

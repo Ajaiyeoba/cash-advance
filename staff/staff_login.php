@@ -179,9 +179,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         <ul class="navmenu">
             <li><a href="../index.html">Home</a></li>            
-            <li><a href="">Dept</a></li>
+            <!-- <li><a href="">Dept</a></li> -->
             <li><a href="staff/staff_login.php">Staff</a></li>            
-            <li><a href="">Bursary</a></li>
+            <!-- <li><a href="">Bursary</a></li> -->
         </ul>
         <div class="nav-btn">
         <!-- <a href="login.php" class="" id="log-btn">Login</a>
@@ -214,7 +214,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="formbold-form-wrapper">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="formbold-form-title">
-              <h2 class="">Login</h2>
+              <h2 class="">Staff Login</h2>
     </div>
 
     <div class="formbold-mb-3">

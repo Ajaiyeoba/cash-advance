@@ -29,7 +29,49 @@ if (!$results) {
     <script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
 </head>
 <style>
- 
+  .formbold-btn {
+          font-size: 16px;
+          border-radius: 5px;
+          padding: 14px 25px;
+          border: none;
+          font-weight: 500;
+          background-color: #6a64f1;
+          color: white;
+          cursor: pointer;
+          margin-top: 25px;
+        }
+        .formbold-btn:hover {
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .crud-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.crud-button:hover {
+  background-color: #45a049; /* Darker Green */
+}
+
+.crud-button.delete {
+  background-color: #f44336; /* Red */
+}
+
+.crud-button.delete:hover {
+  background-color: #da190b; /* Darker Red */
+}
+.flex-btn{
+    display:flex;
+}
 </style>
 <body>
    
@@ -40,10 +82,10 @@ if (!$results) {
         </a>
 
         <ul class="navmenu">
-            <li><a href="index.html">Home</a></li>            
-            <li><a href="dept/dept_reg.php">Dept</a></li>
-            <li><a href="staff/staff_login.php">Staff</a></li>            
-            <li><a href="bursary/bursary_login.php">Bursary</a></li>
+            <li><a href="../index.html">Home</a></li>            
+            <li><a href="dept/dept_login.php">Dept</a></li>
+            <li><a href="staff_login.php">Staff</a></li>            
+            <li><a href=".bursary/bursary_login.php">Bursary</a></li>
 
         </ul>
 
@@ -70,7 +112,7 @@ if (!$results) {
                                     <th>Name </th>
                                     <th>Amount</th>
                                     <th>Request</th>
-       a                             <th>Department  </th>
+                                    <th>Department  </th>
                                     <th>Operatons</th>
                                 </tr>
                             </thead>
@@ -90,16 +132,14 @@ if (!$results) {
                                                 <td class="column3">' . $amount . '</td>
                                                 <td class="column4">' . $request . '</td>
                                                 <td class="column5">' . $dept . '</td>
-                                                <td>
-                                                    <button><a href="">Update</a></button>
-                                                    <button><a href="">Delete</a></button>
+                                                <td class="flex-btn">
+                                                    <button class="crud-button"><a href="update.php?updateid='. $id .' ">Update</a></button>
+                                                    <button class="crud-button delete"><a href="delete.php?deleteid='. $id.'">Delete</a></button>
                                                 </td>
                                             </tr>';
                                     }
                                 }
                                 ?>
-                                
-
                                 
 
                             </tbody>
@@ -111,6 +151,13 @@ if (!$results) {
     </section>
 
 
+    <section>
+        <a href="staff_request.php">
+            <button class="formbold-btn">
+                Make Request
+            </button>
+        </a>
+    </section>
 
     <section class="contact">
         <div class="contact-info">

@@ -108,64 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/bf172a1461.js" crossorigin="anonymous"></script>
     <style>
-             .container{
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    width: 400px;
-    margin-top: 7%;
-}
-.container h2{
-    text-align: center;
-}
-.container p{
-    
-    text-align: center
-}
-
-.header{
-    border-bottom: 1px solid #f0f0f0;
-    background-color: #fff;
-    padding: 20px 40px;
-}
-form{
-    padding: 30px 40px;
-}
-.form-group{
-    margin-bottom: 10px;
-    padding-bottom: 20px;
-    position: relative;
-}
-.form-group label{
-    display: inline-block;
-    margin-bottom: 5px;
-    font-family: cursive;
-}
-.form-group input{
-    border: 2px solid #f0f0f0;
-     border-radius: 4px;
-    display: block;
-    font-size: 14px;
-    padding: 10px;
-    width: 100%; 
-}
-.form-group input:focus{
-    outline: 0;
-    border-color: #777;
-}
-.btn{
-    background: #551a8b;
-    border: 2px solid #8e44ad;
-    border-radius: 4px;
-    color: #fff;
-    display: block;
-    font-family: cursive;
-    font-size: 16px;
-    padding: 10px;
-    margin-top: 20px;
-    width: 100%;
-}
+  
 /* New Form Styles */
 .formbold-main-wrapper{
     display: flex;
@@ -248,7 +191,7 @@ form{
 
         <ul class="navmenu">
             <li><a href="index.html">Home</a></li>            
-            <li><a href="">Dept</a></li>
+            <li><a href="dept/dept_reg.php">Dept</a></li>
             <li><a href="">Staff</a></li>            
             <li><a href="">Bursary</a></li>
 
@@ -267,7 +210,7 @@ form{
             <div class="formbold-form-wrapper">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="formbold-form-title">
-              <h2 class="">Register</h2>
+              <h2 class="">Staff Register</h2>
     </div>
 
     <div class="formbold-input-flex">
@@ -279,7 +222,7 @@ form{
                     type="text"
                     name="staff_id"
                     id="staff_id"
-                    class="formbold-form-input <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $staff_id; ?>" value="<?php echo $staff_id; ?>"
+                    class="formbold-form-input <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>"  value="<?php echo $staff_id; ?>"
                 />
               </div>
             <div>

@@ -1,43 +1,38 @@
-
 <?php
+    session_start();
 include '../config.php';
 
-if(isset($_POST['submit'])) {
-  $name = $_POST['name'];
-  $amount = $_POST['amount'];
-  $request = $_POST['request'];
-  $dept = $_POST['dept'];
+    $id = $_GET['updateid'];
+    $sql = "SELECT * FROM  staff_requests  where id=$id";
+    $results = mysqli_query($link, $sql);
+    $row = mysqli_fetch_assoc($results);
+    $name = $row['name'];
+    $amount = $row['amount'];
+    $request = $row['request'];
+    $dept = $row['dept'];
+        if(isset($_POST['submit'])) {
+            $name = $_POST['name'];
+            $amount = $_POST['amount'];
+            $request = $_POST['request'];
+            $dept = $_POST['dept'];
 
-    $sql = "INSERT INTO `staff_requests` (name, amount, request, dept) VALUES (?, ?, ?, ?)";
-    $stmt = $link->prepare($sql);
-    
-    if ($stmt) {
-        $stmt->bind_param("ssss", $name, $amount, $request, $dept);
-        if ($stmt->execute()) {
-            // Redirect to staff_display.php after successful insertion
-            header('location: staff_display.php');
-            exit(); // Terminate script after redirection
-        } else {
-            die("Error: Unable to execute query. " . mysqli_error($link));
+            $sql = "UPDATE staff_requests SET name=?, amount=?, request=?, dept=? WHERE id=?";
+            $stmt  = $link -> prepare($sql);
+            $stmt  -> bind_param("sissi", $name, $amount, $request, $dept, $id);
+
+            if ($stmt->execute()) {
+                // Redirect to display.php after successful update
+                header('location: staff_display.php');
+                exit(); // Terminate script after redirection
+            } else {
+                die("Error: " . $sql . "<br>" . $conn->error);
+            }
         }
-    } else {
-        die("Error: Unable to prepare statement. " . mysqli_error($link));
-    }
-}
+        
+    ?>
 
 
 
-// Initialize the session
-session_start();
-
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
-?>
-
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -238,6 +233,7 @@ form{
                     name="name"
                     id="name"
                     class="formbold-form-input"
+                    value="<?php echo htmlspecialchars($name); ?>"
                 />
               </div>
               <div>
@@ -249,6 +245,7 @@ form{
                     name="amount"
                     id="amount"
                     class="formbold-form-input"
+                    value="<?php echo htmlspecialchars($amount); ?>"
                 />
               </div>
             </div>
@@ -263,6 +260,7 @@ form{
                     name="request"
                     id="name"
                     class="formbold-form-input"
+                    value="<?php echo htmlspecialchars($request); ?>"
                 />
               </div>
     </div>
@@ -275,10 +273,11 @@ form{
                 name="dept"
                 id="dept"
                 class="formbold-form-input"
+                value="<?php echo htmlspecialchars($dept); ?>"
               />
             </div>
         
-            <input type="submit" name="submit" class="formbold-btn" value="Make Request">
+            <input type="submit" name="submit" class="formbold-btn" value="Update Request">
               </div>
             
 
