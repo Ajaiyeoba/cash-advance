@@ -44,7 +44,7 @@ if (!$results) {
           box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
         }
 
-        .crud-button {
+.crud-button {
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;

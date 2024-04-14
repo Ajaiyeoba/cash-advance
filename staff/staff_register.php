@@ -190,9 +190,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </a>
 
         <ul class="navmenu">
-            <li><a href="index.html">Home</a></li>            
-            <li><a href="dept/dept_reg.php">Dept</a></li>
-            <li><a href="">Staff</a></li>            
+            <li><a href="../index.html">Home</a></li>            
+            <li><a href="">Dept</a></li>
+            <li><a href="staff_login.php">Staff</a></li>            
             <li><a href="">Bursary</a></li>
 
         </ul>

@@ -13,10 +13,10 @@ $department_err = $password_err = $login_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if department is empty
-    if(empty(trim($_POST["department"]))){
+    if(empty(trim($_POST["department"]))){ // Changed from $_POST["department"]
         $department_err = "Please enter Department.";
     } else{
-        $department = trim($_POST["department"]);
+        $department = trim($_POST["department"]); // Changed from $_POST["department"]
     }
     
     // Check if password is empty
@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($department_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, department, admin, password FROM users WHERE department = ?";
+        $sql = "SELECT id, department, admin, password FROM dept WHERE department = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["admin"] = $admin; // Store admin in session
                             
                             // Redirect user to welcome page
-                            header("location: ../welcome.php");
+                            header("location: dept.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid admin or password.";
@@ -81,6 +81,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_close($link);
 }
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -205,7 +208,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </label>
                 <input
                     type="text"
-                    name="staff_id"
+                    name="department"
                     id="name"
                     class="formbold-form-input <?php echo (!empty($department_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $department; ?>"
                 />
