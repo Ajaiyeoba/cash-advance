@@ -13,10 +13,10 @@ $department_err = $password_err = $login_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if department is empty
-    if(empty(trim($_POST["department"]))){ // Changed from $_POST["department"]
+    if(empty(trim($_POST["department"]))){
         $department_err = "Please enter Department.";
     } else{
-        $department = trim($_POST["department"]); // Changed from $_POST["department"]
+        $department = trim($_POST["department"]);
     }
     
     // Check if password is empty
@@ -50,15 +50,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
-                            session_start();
                             
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["admin"] = $admin; // Store admin in session
                             
-                            // Redirect user to welcome page
-                            header("location: dept.php");
+                            // Redirect user to display page
+                            header("location:dept.php");
+                            exit;
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid admin or password.";

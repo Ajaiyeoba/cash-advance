@@ -2,40 +2,26 @@
 <?php
 include '../config.php';
 
-if(isset($_POST['submit'])) {
-  $name = $_POST['name'];
-  $amount = $_POST['amount'];
-  $request = $_POST['request'];
-  $dept = $_POST['dept'];
-  
+// Initialize an empty array to store requests
+$requests = [];
 
-    $sql = "INSERT INTO `staff_requests` (name, amount, request, dept) VALUES (?, ?, ?, ?)";
-    $stmt = $link->prepare($sql);
-    
-    if ($stmt) {
-        $stmt->bind_param("ssss", $name, $amount, $request, $dept);
-        if ($stmt->execute()) {
-            // Redirect to staff_display.php after successful insertion
-            header('location: staff_display.php');
-            exit(); // Terminate script after redirection
-        } else {
-            die("Error: Unable to execute query. " . mysqli_error($link));
-        }
-    } else {
-        die("Error: Unable to prepare statement. " . mysqli_error($link));
+// SQL query to retrieve requests from the database
+$sql = "SELECT * FROM staff_requests";
+$result = mysqli_query($link, $sql);
+
+// Check if any requests were found
+if (mysqli_num_rows($result) > 0) {
+    // Loop through each row and store the data in the $requests array
+    while ($row = mysqli_fetch_assoc($result)) {
+        $requests[] = $row;
     }
 }
 
+// Close the database connection
+mysqli_close($link);
 
 
-// Initialize the session
-session_start();
 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
-}
 ?>
 
  
@@ -215,84 +201,12 @@ form{
         <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome Back.  </h1>
 
       
-        <div class="formbold-main-wrapper">
 
-       
-        <div class="formbold-form-wrapper">
-            <form action=" "  method="POST">
-            <div class="formbold-form-title">
-              <h2 class="">Request now</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt.
-              </p>
-            </div>
-
-
-            <div class="formbold-input-flex">
-            <div>
-                <label for="firstname" class="formbold-form-label">
-                  Name
-                </label>
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    class="formbold-form-input"
-                />
-              </div>
-              <div>
-                <label for="amount" class="formbold-form-label">
-                  Amount
-                </label>
-                <input
-                    type="number"
-                    name="amount"
-                    id="amount"
-                    class="formbold-form-input"
-                />
-              </div>
-            </div>
-
-            <div class="formbold-mb-3">
-            <div>
-                <label for="firstname" class="formbold-form-label">
-                  Request
-                </label>
-                <input
-                    type="text"
-                    name="request"
-                    id="name"
-                    class="formbold-form-input"
-                />
-              </div>
-    </div>
-              <div class="formbold-mb-3">
-              <label for="dept" class="formbold-form-label">
-                Department
-              </label>
-              <input
-                type="text"
-                name="dept"
-                id="dept"
-                class="formbold-form-input"
-              />
-            </div>
-        
-            <input type="submit" name="submit" class="formbold-btn" value="Make Request">
-          
-          
-          
-            <!-- <a href="staff_display.php">
-             <button class="formbold-btn">View Request</button>
-           </a>   
-           -->
-          </div>
             
 
 
-            </form>
-        </div>
+         
+    
         </div>
     </section>
 

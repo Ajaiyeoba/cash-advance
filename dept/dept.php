@@ -1,5 +1,3 @@
-
-
 <?php
 // Initialize the session
 session_start();
@@ -120,56 +118,51 @@ if (!$results) {
                             </thead>
                             <tbody>
                     <?php 
-                    // if(mysqli_stmt_num_rows($results) > 0){
+
+                    // if(mysqli_num_rows($results) > 0){
                     //     while ($row = mysqli_fetch_assoc($results)) {
                     //         $id = $row['id'];
                     //         $name = $row['name'];
                     //         $amount = $row['amount'];
                     //         $request = $row['request'];
                     //         $dept = $row['dept'];
-
+                    
                     //         echo '
                     //         <tr>
                     //             <td class="column1"> '. $id.' </td>
                     //             <td class="column2"> '. $name.' </td>
                     //             <td class="column3">' . $amount . '</td>
                     //             <td class="column4">' . $request . '</td>
-                    //          <td class="column5">' . $dept . '</td>
-
-                    //          <td class="flex-btn">
-                    //          <button class="crud-button"><a href=" ">Confirm</a></button>
-                    //          <button class="crud-button delete"><a href="">Reject</a></button>
-                    //            </td>
+                    //             <td class="column5">' . $dept . '</td>
+                    //             <td class="flex-btn">
+                    //                 <button class="crud-button"><a href="status_Accept.php?eid=' . $id . '&request=' . $request . '">Confirm</a></button>
+                    //                 <button class="crud-button delete"><a href="">Reject</a></button>
+                    //             </td>
                     //         </tr>
                     //         ';
                     //     }
                     // }
 
-                    if(mysqli_num_rows($results) > 0){
-                        while ($row = mysqli_fetch_assoc($results)) {
-                            $id = $row['id'];
-                            $name = $row['name'];
-                            $amount = $row['amount'];
-                            $request = $row['request'];
-                            $dept = $row['dept'];
+                    // Implement a confirmation and rejection mechanism then update database with confirmation status.
+
+                if (!empty($requests)): ?>
                     
-                            echo '
-                            <tr>
-                                <td class="column1"> '. $id.' </td>
-                                <td class="column2"> '. $name.' </td>
-                                <td class="column3">' . $amount . '</td>
-                                <td class="column4">' . $request . '</td>
-                                <td class="column5">' . $dept . '</td>
-                                <td class="flex-btn">
+                            <?php foreach ($requests as $request): ?>
+                                <tr>
+                                    <td class="column1"><?php echo $request['id']; ?></td>
+                                    <td class="column2"><?php echo $request['name']; ?></td>
+                                    <td class="column3"><?php echo $request['amount']; ?></td>
+                                    <td class="column5"><?php echo $request['request']; ?></td>
+                                    <td class="column5"><?php echo $request['dept']; ?></td> 
+                                    <td><?php echo $request['status']; ?>
                                     <button class="crud-button"><a href="status_Accept.php?eid=' . $id . '&request=' . $request . '">Confirm</a></button>
                                     <button class="crud-button delete"><a href="">Reject</a></button>
-                                </td>
-                            </tr>
-                            ';
-                        }
-                    }
-                    
-                        ?>
+                                 </td>
+                                        
+                                </tr>
+                            <?php endforeach; ?>
+                        
+                        
                         </tbody>
 
 </table>
@@ -182,7 +175,7 @@ if (!$results) {
     <div class="form-group">
     
         <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
-        <a href="logout.php" class="btn  ">Sign Out of Your Account</a>
+        <a href="../logout.php" class="btn  ">Sign Out of Your Account</a>
     
 
     </div>     

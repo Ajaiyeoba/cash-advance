@@ -12,7 +12,7 @@ else{
 	$id = $_GET['id'];
 	$request = $_GET['request'];
 
-	$add_to_db = mysqli_query($link,"UPDATE staff_requests SET status='Accepted' WHERE id='".$id."' AND request='".$request."'");
+	$add_to_db = mysqli_query($link,"UPDATE staff_request SET status='Accepted' WHERE id='".$id."' AND request='".$request."'");
 
 				if($add_to_db){	
 					echo 'Saved!!';

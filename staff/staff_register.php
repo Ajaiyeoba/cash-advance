@@ -277,6 +277,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 
     <input type="submit" name="submit" class="formbold-btn" value="Register">
+
+
+
+   
     <p>Already Have an Account! <a href="staff_login.php">Login</a>.</p>     
 </form>
             </div>

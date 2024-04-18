@@ -13,10 +13,10 @@ $bur_user_err = $password_err = $login_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if staff ID is empty
-    if(empty(trim($_POST["staff_id"]))){
-        $staff_id_err = "Please enter staff ID.";
+    if(empty(trim($_POST["bur_user"]))){
+        $bur_user_err = "Please enter staff ID.";
     } else{
-        $staff_id = trim($_POST["staff_id"]);
+        $bur_user = trim($_POST["bur_user"]);
     }
     
     // Check if password is empty
@@ -27,13 +27,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate credentials
-    if(empty($staff_id_err) && empty($password_err)){
+    if(empty($bur_user_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, bur_user , password FROM users WHERE staff_id = ?";
+        $sql = "SELECT id, bur_user, password FROM bursary WHERE bur_user = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_staff_id);
+            mysqli_stmt_bind_param($stmt, "s", $param_bur_user);
             
             // Set parameters
             $param_bur_user = $bur_user;
@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["bur_user"] = $bur_user; // Store username in session
                             
                             // Redirect user to welcome page
-                            header("location: ../welcome.php");
+                            header("location: bursary_app.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -206,8 +206,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <!-- <div class="form-group">
                 <label>Staff ID</label>
-                <input type="text" name="staff_id" class="form-control <?php echo (!empty($staff_id_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $staff_id; ?>">
-                <span class="invalid-feedback"><?php echo $staff_id_err; ?></span>
+                <input type="text" name="bur_user" class="form-control <?php echo (!empty($bur_user_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bur_user; ?>">
+                <span class="invalid-feedback"><?php echo $bur_user_err; ?></span>
             </div>    
             <div class="form-group">
                 <label>Password</label>
@@ -232,13 +232,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <div class="formbold-input-flex">
             <div>
-                <label for="staff_id" class="formbold-form-label">
+                <label for="bur_user" class="formbold-form-label">
                   Bursary Staff Username
                 </label>
                 <input
                     type="text"
                     name="bur_user"
-                    id="staff_id"
+                    id="bur_user"
                     class="formbold-form-input <?php echo (!empty($bur_user_err)) ? 'is-invalid' : ''; ?>"  value="<?php echo $bur_user; ?>"
                 />
               </div>

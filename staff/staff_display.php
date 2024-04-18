@@ -156,6 +156,11 @@ if (!$results) {
             <button class="formbold-btn">
                 Make Request
             </button>
+
+
+            <a href="staff_accept.php">
+                <button class="formbold-btn"> View Confirmed Request</button>
+            </a>
         </a>
     </section>
 
