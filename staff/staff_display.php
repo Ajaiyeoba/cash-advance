@@ -114,6 +114,7 @@ if (!$results) {
                                     <th>Request</th>
                                     <th>Department  </th>
                                     <th>Operatons</th>
+                                    <th>status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -136,7 +137,10 @@ if (!$results) {
                                                     <button class="crud-button"><a href="update.php?updateid='. $id .' ">Update</a></button>
                                                     <button class="crud-button delete"><a href="delete.php?deleteid='. $id.'">Delete</a></button>
                                                 </td>
+
+                                                <td class="column5">Pending</td>
                                             </tr>';
+                                        
                                     }
                                 }
                                 ?>

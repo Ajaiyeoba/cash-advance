@@ -1,29 +1,36 @@
 <?php
-
-//require_once("DBConnection.php");
-require '../config.php';
 session_start();
+include '../config.php';
 
-if(!isset($_SESSION["sess_user"])){
-	header("Location: dept.php");
-  }
-else{
+// Check if the user is logged in
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: dept_login.php");
+    exit;
+}
 
-	$id = $_GET['id'];
-	$request = $_GET['request'];
+// Check if the request to confirm/reject has been sent
+if (isset($_GET['action']) && isset($_GET['id'])) {
+    $action = $_GET['action'];
+    $id = $_GET['id'];
 
-	$add_to_db = mysqli_query($link,"UPDATE staff_request SET status='Accepted' WHERE id='".$id."' AND request='".$request."'");
+    // Update the status in the database based on the action
+    if ($action === 'confirm') {
+        $status = 'Confirmed';
+    } elseif ($action === 'reject') {
+        $status = 'Rejected';
+    }
 
-				if($add_to_db){	
-					echo 'Saved!!';
-					header("Location: dept.php");
-				}
-				else{
-					echo "Query Error : " . "UPDATE leaves SET status='Accepted' WHERE id='".$id."' AND request='".$request."'" . "<br>" . mysqli_error($conn);
-				}
-	}
+    // Update the status in the database
+    $sql = "UPDATE staff_requests SET status = '$status' WHERE id = $id";
 
-	ini_set('display_errors', true);
-	error_reporting(E_ALL);  
-         
+    if (mysqli_query($link, $sql)) {
+        // Store the updated status in a session variable
+        $_SESSION['updated_status'] = $status;
+        // Redirect back to the page where the table is displayed
+        header("location: dept.php");
+        exit;
+    } else {
+        echo "Error updating record: " . mysqli_error($link);
+    }
+}
 ?>

@@ -1,11 +1,15 @@
 <?php
 // Initialize the session
 session_start();
+include '../config.php';
 
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: bursary_login.php");
     exit;
+}
+if ($link->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>
  
@@ -25,7 +29,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 <body>
 <header>
-
         <a href="" class="logo">
         <h2>FundWatch <i class="fa-light fa-comment-plus"></i></h2>
         </a>
@@ -46,15 +49,76 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 <section>
 
-        <div class="request">
+        <!-- <div class="request">
           <a href="" class>  <button>Request</button> </a>
         </div>
         <div class="confirm">
     <button>Confirm</button>
-        </div>
+        </div> -->
+
+        <div class="request">
+        <div class="limter">
+            <div class="container-table100">
+                <div class="wrap-table100">
+                    <div class="table100">
+                        <table>
+                            <thead>
+                                <tr class="table100-head">
+                                    <th>Id</th>
+                                    <th>Staff Name </th>
+                                    <th>Amount</th>
+                                    <th>Request</th>
+                                    <th>Department  </th>
+                                    <th>Dispense</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+<?php 
+        $sql = "SELECT * FROM staff_requests  where status = 'confirmed' ";
+        $results = mysqli_query($link, $sql);
+          
+        if (!$results) {
+            die("Error: " . $sql . "<br>" . mysqli_error($link));
+        }
+        
+                            if(mysqli_num_rows($results) > 0){
+                                while ($row = mysqli_fetch_assoc($results)) {
+                                    $id = $row['id'];
+                                    $name = $row['name'];
+                                    $amount = $row['amount'];
+                                    $request = $row['request'];
+                                    $dept = $row['dept'];
+                                    $status = $_row['status'];
+                                
+                                
+                                echo '
+                                <tr> 
+                                <td class="column1"> '.$id.'</td>
+                                <td class="column1"> '.$name.'</td>
+                                <td class="column1"> '.$amount.'</td>
+                                <td class="column1"> '.$request.'</td>
+                                <td class="column1"> '.$dept.'</td>
+                                <td>
+                                <a> <button> Dispense </button> </a>
+                                </td>
+                                </tr>
+                                ';
+                            } 
+                            }
+        ?>
+
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 
 
+<section>
     
     <div class="form-group">
     

@@ -2,6 +2,15 @@
 <?php
 include '../config.php';
 
+
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: staff_login.php");
+    exit;
+}
 if(isset($_POST['submit'])) {
   $name = $_POST['name'];
   $amount = $_POST['amount'];
@@ -202,9 +211,7 @@ form{
         </a>
         <ul class="navmenu">
             <li><a href="../index.html">Home</a></li>            
-            <li><a href="">Dept</a></li>
             <li><a href="staff/staff_login.php">Staff</a></li>            
-            <li><a href="">Bursary</a></li>
         </ul>
         <div class="nav-btn">
            <div  class="fa-solid fa-bars" id="menu-icon"></div>
@@ -212,9 +219,7 @@ form{
     </header>
 
         <section>
-        <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome Back.  </h1>
-
-      
+        <h1 class="my-5">Hi! <b><?php echo htmlspecialchars($_SESSION["admin"]); ?></b> Welcome Back.  </h1>
         <div class="formbold-main-wrapper">
 
        
@@ -222,10 +227,7 @@ form{
             <form action=" "  method="POST">
             <div class="formbold-form-title">
               <h2 class="">Request now</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt.
-              </p>
+             
             </div>
 
 

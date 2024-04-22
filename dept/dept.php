@@ -13,20 +13,6 @@ if ($link->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM staff_requests";
-// $results = mysqli_query($link, $sql);
-
-// if (!$results) {
-//     die("Error: " . $sql . "<br>" . mysqli_error($link));
-// }
-
-$results = mysqli_query($link, $sql);
-
-if (!$results) {
-    die("Error: " . $sql . "<br>" . mysqli_error($link));
-}
-
-
 
 ?>
  
@@ -35,7 +21,6 @@ if (!$results) {
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,6 +83,7 @@ if (!$results) {
 <section>
 
         <h1 class="my-5">Hi! <b><?php echo htmlspecialchars($_SESSION["admin"]); ?></b> Welcome Back.  </h1>
+        <h2>Confirm the Following Requests </h2>
 
 
         <div class="request">
@@ -109,66 +95,57 @@ if (!$results) {
                             <thead>
                                 <tr class="table100-head">
                                     <th>Id</th>
-                                    <th>Name </th>
+                                    <th>Staff Name </th>
                                     <th>Amount</th>
                                     <th>Request</th>
                                     <th>Department  </th>
-                                    <th>Operatons</th>
+                                    <th>Action</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                     <?php 
 
-                    // if(mysqli_num_rows($results) > 0){
-                    //     while ($row = mysqli_fetch_assoc($results)) {
-                    //         $id = $row['id'];
-                    //         $name = $row['name'];
-                    //         $amount = $row['amount'];
-                    //         $request = $row['request'];
-                    //         $dept = $row['dept'];
-                    
-                    //         echo '
-                    //         <tr>
-                    //             <td class="column1"> '. $id.' </td>
-                    //             <td class="column2"> '. $name.' </td>
-                    //             <td class="column3">' . $amount . '</td>
-                    //             <td class="column4">' . $request . '</td>
-                    //             <td class="column5">' . $dept . '</td>
-                    //             <td class="flex-btn">
-                    //                 <button class="crud-button"><a href="status_Accept.php?eid=' . $id . '&request=' . $request . '">Confirm</a></button>
-                    //                 <button class="crud-button delete"><a href="">Reject</a></button>
-                    //             </td>
-                    //         </tr>
-                    //         ';
-                    //     }
-                    // }
+$sql = "SELECT * FROM staff_requests ";
+$results = mysqli_query($link, $sql);
 
-                    // Implement a confirmation and rejection mechanism then update database with confirmation status.
+if (!$results) {
+    die("Error: " . $sql . "<br>" . mysqli_error($link));
+}
 
-                if (!empty($requests)): ?>
+                    if(mysqli_num_rows($results) > 0){
+                        while ($row = mysqli_fetch_assoc($results)) {
+                            $id = $row['id'];
+                            $name = $row['name'];
+                            $amount = $row['amount'];
+                            $request = $row['request'];
+                            $dept = $row['dept'];
                     
-                            <?php foreach ($requests as $request): ?>
-                                <tr>
-                                    <td class="column1"><?php echo $request['id']; ?></td>
-                                    <td class="column2"><?php echo $request['name']; ?></td>
-                                    <td class="column3"><?php echo $request['amount']; ?></td>
-                                    <td class="column5"><?php echo $request['request']; ?></td>
-                                    <td class="column5"><?php echo $request['dept']; ?></td> 
-                                    <td><?php echo $request['status']; ?>
-                                    <button class="crud-button"><a href="status_Accept.php?eid=' . $id . '&request=' . $request . '">Confirm</a></button>
+                            echo '
+                            <tr>
+                                <td class="column1">' . $id . '</td>
+                                <td class="column2">' . $name . '</td>
+                                <td class="column3">' . $amount . '</td>
+                                <td class="column4">' . $request . '</td>
+                                <td class="column5">' . $dept . '</td>
+                                <td class="flex-btn">
+                                    <button class="crud-button"><a href="status_Accept.php?action=confirm&id=id">Confirm</a></button>
                                     <button class="crud-button delete"><a href="">Reject</a></button>
-                                 </td>
-                                        
-                                </tr>
-                            <?php endforeach; ?>
-                        
-                        
-                        </tbody>
+                                </td>
+                                
 
-</table>
-</div>
-</div>
-</div>
+
+                            </tr>
+                            ';
+                        }
+                        //                                // confirm_script.php?action=confirm&id=ITEM_ID
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -226,19 +203,4 @@ if (!$results) {
             </div>
 
             <div class="five-info">
-                <h4>Support</h4>
-                <p>Support</p>
-                <p>Support</p>
-                <p>Support</p>
-                <p>Support</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="end-text">
-        <p> Copyright @2024. All Rghts Reserved</p>
-    </div>
-    <script src="app.js"></script>
-</body>
-</html>
-
+                <
